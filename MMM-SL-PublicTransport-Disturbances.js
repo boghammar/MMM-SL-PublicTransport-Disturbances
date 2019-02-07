@@ -45,6 +45,19 @@ Module.register("MMM-SL-PublicTransport-Disturbances", {
     // --------------------------------------- Handle notifications
     notificationReceived: function (notification, payload, sender) {
         Log.info('Received notification: ' + notification);
+
+        if (notification == 'MMM-SL-PublicTransport-DEPARTURES') {
+            this.currentDepartures = payload;
+
+            Log.info('StopPointDeviations:');
+            for (var is = 0; is < this.currentDepartures.length; is++) {
+                if (this.currentDepartures[is].StopPointDeviations!= null) Log.info(this.currentDepartures[is].StopPointDeviations);
+                for (var ix = 0; ix < this.currentDepartures[is].departures.length; ix++) {
+                    var dep = this.currentDepartures[is].departures[ix];
+                    if (dep.Deviations != null) Log.info(dep.Deviations);
+                }
+            }
+        }
     },
 
 })
